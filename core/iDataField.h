@@ -9,6 +9,6 @@ namespace mbg {
     virtual constexpr ~iDataField() = default;
     virtual constexpr const char* getFieldName() const = 0;
   };
-}
+} // namespace mbg
 
-#endif
+#endif // !_MBG_I_DATA_FIELD_H

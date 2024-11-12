@@ -11,4 +11,7 @@ CTestTestfile.cmake
 _deps
 .gitconfig
 .bash_history
+html
+latex
+Doxyfile
 diagram

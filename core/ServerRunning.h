@@ -1,25 +1,22 @@
-//ServerBeginning.h
+//ServerRunning.h
 
-#ifndef _MBG_SERVER_BEGINNING_H
-#define _MBG_SERVER_BEGINNING_H
+#ifndef _MBG_SERVER_RUNNING_H
+#define _MBG_SERVER_RUNNING_H
 
 #include "BaseServerState.h"
-#include "iProcessor.h"
 
 namespace mbg {
-  class ServerBeginning : public BaseServerState {
+  class ServerRunning : public BaseServerState {
   protected:
     virtual void notifyEntering() override { }
     virtual void notifyExiting() override {}
 
   public:
-    ServerBeginning()
+    //ServerRunning()
     virtual void onEnter() override {}
     virtual void onExit() override {}
 
-
-
   };
 } // namespace mbg
+#endif // !_MBG_SERVER_RUNNING_H
 
-#endif // !_MBG_SERVER_BEGINNING_H

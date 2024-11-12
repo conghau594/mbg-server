@@ -10,13 +10,13 @@ namespace mbg {
   template class DataField<ExFloat>;
   template class DataField<PathType>;
 
-  constexpr DataField<PathType> INDEX_TAG("index");
-  constexpr DataField<PathType> PLAYER_MOVE_TAG("playerMove");
+  constexpr PathField PATH_TAG("path");
+  constexpr PathField PLAYER_MOVE_TAG("playerMove");
 
-  constexpr DataField<ExStr> LOGIN_SID_TAG("loginSID");
-  constexpr DataField<ExStr> GAME_SID_TAG("gameSID");
-  constexpr DataField<ExStr> CLIENT_CODE_TAG("clientCode");
-  constexpr DataField<ExStr> USERNAME_TAG("username");
-  constexpr DataField<ExStr> PASSWORD_TAG("password");
-  constexpr DataField<ExStr> GAME_MODE_TAG("gameMode");
-}
+  constexpr StrField LOGIN_SID_TAG("loginSID");
+  constexpr StrField GAME_SID_TAG("gameSID");
+  constexpr StrField CLIENT_CODE_TAG("clientCode");
+  constexpr StrField USERNAME_TAG("username");
+  constexpr StrField PASSWORD_TAG("password");
+  constexpr StrField GAME_MODE_TAG("gameMode");
+} // namespace mbg

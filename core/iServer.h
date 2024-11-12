@@ -10,6 +10,6 @@ namespace mbg {
     virtual void run() = 0;
     virtual void exit() = 0;
   };
-}
+} // namespace mbg
 
-#endif
+#endif  // !_MBG_I_SERVER_H

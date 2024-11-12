@@ -12,7 +12,8 @@ namespace mbg {
   protected:
     virtual void notifyEntering() = 0;
     virtual void notifyExiting() = 0;
-  };
-}
 
-#endif
+  };
+} // namespace mbg
+
+#endif // !_MBG_BASE_SERVER_STATE_H

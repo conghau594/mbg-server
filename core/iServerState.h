@@ -11,6 +11,6 @@ namespace mbg {
   public:
     virtual iServerState* listenCommand() = 0;
   };
-}
+} // namespace mbg
 
-#endif
+#endif // !_MBG_I_SERVER_STATE_H
