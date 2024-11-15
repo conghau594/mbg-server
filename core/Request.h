@@ -8,7 +8,7 @@ namespace mbg {
   /**
    * @brief A class that represents a request and provides methods to manipulate and extract data from it.
    */
-  class Request : public iRequest {
+  class Request final : public iRequest {
     PathType        path_;      ///< The current path directing this request to travel across the server.
     iDataExtractor* extractor_; ///< The data extractor to be used for extracting data from the request.
 
@@ -35,6 +35,13 @@ namespace mbg {
      */
     Request(iDataExtractor* extractor, PathType path)
       : extractor_(extractor), path_(path) {}
+
+    /**
+     * @brief Destructor for the Request class.
+     * 
+     * This destructor deletes the data extractor associated with the request.
+     */
+    ~Request() { delete extractor_; }
 
     /**
      * @brief Destroys the current object instance.
@@ -114,6 +121,14 @@ namespace mbg {
      */
     PathType getValue(const PathField& field) override {
       return extractor_->getValue(field);
+    }
+
+    /**
+     * @brief Makes a raw string representation of the request.
+     * @return The raw string representation of the request.
+     */
+    String makeRaw() override {
+      return extractor_->makeRaw();
     }
     
   };

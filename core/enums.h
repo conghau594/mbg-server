@@ -6,10 +6,12 @@
 
 namespace mbg {
   enum {
-    FULL_BIT_ONES = size_t(-1), ///<      
-    MAX_RAW_QUEUE = 1 << 10,    ///< The maximum number of raw data that can be stored in the raw queue   
-    MAX_REQUEST_QUEUE = 1 << 10 ///< The maximum number of requests that can be stored in the request queue
-                                ///< Must be greater than or equal to MAX_RAW_QUEUE
+    FULL_BIT_ONES = size_t(-1), ///<    
+    MAX_QUEUE_CAPACITY = 1 << 10, ///< The maximum number of elements that can be stored 
+                                  ///< in a queue
+    MAX_RAW_QUEUE = MAX_QUEUE_CAPACITY,    
+    MAX_REQUEST_QUEUE = MAX_QUEUE_CAPACITY ///< Must be greater than or equal to MAX_RAW_QUEUE
+                                           
   };
 
   enum GameType {

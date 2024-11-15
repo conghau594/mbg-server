@@ -5,28 +5,36 @@
 
 #include "Array.h"
 #include "Utility.h"
-
+#include "enums.h"
 #include "iCriticalFiniteArray.h"
 #include "CriticalArrayController.h"
 
 namespace mbg {
+  /*
+    TODO: Need to refactor the template class `CriticalFiniteArray`
+    - 'array_' should be a pointer to an array of T
+    - 
+   */
   template <typename T>
   class CriticalFiniteArray final : public iCriticalFiniteArray<T>
   {
-    iCriticalArrayController* criticalSectionController_;
-    std::vector<T> array_;
-    SizeType maxSize_;
+    iCriticalArrayController* critArrCtrler_;
+    Array<T> array_;
+    SizeType maxSize_ = MAX_QUEUE_CAPACITY;
 
   public:/// Overrides from iFiniteArray
-    CriticalFiniteArray(SizeType maxSize) 
-      : criticalSectionController_(new CriticalArrayController(
-          [this] { return not isEmpty(); },  //shouldWakeUpHost
-          [this] { return not isFull(); })), //shouldNotifyGuest
-        maxSize_(maxSize) 
+    CriticalFiniteArray(iCriticalArrayController* critArrCtrler = nullptr)
+      : critArrCtrler_(critArrCtrler)
     { }
     
+    /*critArrCtrler_( (not isCritical) ? nullptr : new CriticalArrayController(
+          [this] { return not isEmpty(); },    //shouldWakeUpHost
+          [this] { return not isFull(); })
+          */
+
     ~CriticalFiniteArray() {
-      delete criticalSectionController_;
+      if (critArrCtrler_ != nullptr)
+        delete critArrCtrler_; 
     }
 
     SizeType getSize() const override { return SizeType(array_.size()); }
@@ -64,90 +72,82 @@ namespace mbg {
       return maxSize_ - SizeType(array_.size());
     }
 
-    void collapse() override {
-      //TODO: Implement this method in the CriticalFiniteArray class
-    }
-
-
-    void cloneFrom(const CriticalFiniteArray<T>& source, SizeType srcIndex, SizeType destIndex, SizeType n) {
-      Utility::copyMemory(array_.data() + destIndex, source.array_.data() + srcIndex, n * sizeof(T));
-    }
-    
-
-    void cloneFrom(const CriticalFiniteArray<T>& source) {
-      cloneFrom(source, 0, 0, SizeType(source.array_.size()));
-    }
-
-    void cloneFrom(const T* source, SizeType destIndex, SizeType n) override {
-      Utility::copyMemory(array_.data() + destIndex, source, n * sizeof(T));
-    }
-
-
-    void cloneFrom(const iFiniteArray<T>* source, SizeType srcIndex, SizeType destIndex, SizeType n) override {
-      source->copyTo(array_.data() + destIndex, srcIndex, n);
-    }
-
-    void cloneFrom(const iFiniteArray<T>* source) override {
-      source->copyTo(array_.data(), 0, source->getSize());
-    }
-
-    void copyTo(CriticalFiniteArray<T>& dest, SizeType srcIndex, SizeType destIndex, SizeType n) const {
-      Utility::copyMemory(dest.array_.data() + destIndex, array_.data() + srcIndex, n * sizeof(T));
-    }
-
-    void copyTo(CriticalFiniteArray<T>& dest) const {
-      copyTo(dest, 0, 0, SizeType(array_.size()));
-    }
-
-    void copyTo(T* dest, SizeType srcIndex, SizeType n) const override {
-      Utility::copyMemory(dest, array_.data() + srcIndex, n * sizeof(T));
-    }
-
-
-    void copyTo(iFiniteArray<T>* dest) const override {
-      dest->cloneFrom(array_.data(), 0, SizeType(array_.size()));
-    }
-
-    void copyTo(iFiniteArray<T>* dest, SizeType srcIndex, SizeType destIndex, SizeType n) const override {
-      dest->cloneFrom(array_.data() + srcIndex, destIndex, n);
-    }
-
     void clear() override {
       array_.clear();
     }
 
+    void swapTo(CriticalFiniteArray<T>& other) {
+      array_.swap(other.array_);
+    }
+
+    //void cloneFrom(const CriticalFiniteArray<T>& source, SizeType srcIndex, SizeType destIndex, SizeType n) {
+    //  Utility::copyMemory(array_.data() + destIndex, source.array_.data() + srcIndex, n * sizeof(T));
+    //}
+    //void cloneFrom(const CriticalFiniteArray<T>& source) {
+    //  cloneFrom(source, 0, 0, SizeType(source.array_.size()));
+    //}
+    //void cloneFrom(const T* source, SizeType destIndex, SizeType n) override {
+    //  Utility::copyMemory(array_.data() + destIndex, source, n * sizeof(T));
+    //}
+    //void cloneFrom(const iFiniteArray<T>* source, SizeType srcIndex, SizeType destIndex, SizeType n) override {
+    //  source->copyTo(array_.data() + destIndex, srcIndex, n);
+    //}
+    //void cloneFrom(const iFiniteArray<T>* source) override {
+    //  source->copyTo(array_.data(), 0, source->getSize());
+    //}
+    //void copyTo(CriticalFiniteArray<T>& dest, SizeType srcIndex, SizeType destIndex, SizeType n) const {
+    //  Utility::copyMemory(dest.array_.data() + destIndex, array_.data() + srcIndex, n * sizeof(T));
+    //}
+    //void copyTo(CriticalFiniteArray<T>& dest) const {
+    //  copyTo(dest, 0, 0, SizeType(array_.size()));
+    //}
+    //void copyTo(T* dest, SizeType srcIndex, SizeType n) const override {
+    //  Utility::copyMemory(dest, array_.data() + srcIndex, n * sizeof(T));
+    //}
+    //void copyTo(iFiniteArray<T>* dest) const override {
+    //  dest->cloneFrom(array_.data(), 0, SizeType(array_.size()));
+    //}
+    //void copyTo(iFiniteArray<T>* dest, SizeType srcIndex, SizeType destIndex, SizeType n) const override {
+    //  dest->cloneFrom(array_.data() + srcIndex, destIndex, n);
+    //}
+
+
+
   public:/// Overrides from iCriticalArrayController
 
     void lockForHost() override {
-      criticalSectionController_->lockForHost();
+      critArrCtrler_->lockForHost();
     }
 
     void lockForGuest() override {
-      criticalSectionController_->lockForGuest();
+      critArrCtrler_->lockForGuest();
     }
 
     void unlock() override {
-      criticalSectionController_->unlock();
+      critArrCtrler_->unlock();
     }
 
     void wakeUpHost() override {
-      criticalSectionController_->wakeUpHost();
+      critArrCtrler_->wakeUpHost();
     }
 
     void notifyOneGuest() override {
-      criticalSectionController_->notifyOneGuest();
+      critArrCtrler_->notifyOneGuest();
     }
 
     void notifyAll() override {
-      criticalSectionController_->notifyAll();
+      critArrCtrler_->notifyAll();
     }
 
     Bool isNoGuestWaiting() override {
-      return criticalSectionController_->isNoGuestWaiting();
+      return critArrCtrler_->isNoGuestWaiting();
     }
 
   };
 
+
+  extern template Array<iRequest*>;
+  extern template Array<RawType>;
 
   extern template class CriticalFiniteArray<iRequest*>;
   extern template class CriticalFiniteArray<RawType>;

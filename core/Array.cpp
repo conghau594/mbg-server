@@ -1,8 +1,12 @@
 //Array.cpp
 
-#include "Array.h"
+#include "iRequestProcessor.h"
+#include "ExtendedType.h"
 
 namespace mbg {
-  template Array<iProcessor*>;
+  template Array<iRequestProcessor*>;
+  template Array<PathType>;
+  template Array<iRequest*>;
+  template Array<RawType>;
 
 } // namespace mbg

@@ -11,6 +11,9 @@ namespace mbg {
     virtual ExStr getValue(const StrField& field) = 0;
     virtual ExFloat getValue(const FloatField& field) = 0;
     virtual PathType getValue(const PathField& field) = 0;
+
+    virtual String makeRaw() = 0;
+
   };
 } // namespace mbg 
 

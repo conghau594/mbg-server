@@ -13,7 +13,7 @@ namespace mbg {
    * This class implements the iDataExtractor interface to provide methods
    * for extracting integer, string, float, and path values from JSON objects.
    */
-  class JsonExtractor : public iDataExtractor {
+  class JsonExtractor final : public iDataExtractor {
     Json json_; ///< JSON object to store the parsed JSON data.
 
   public:
@@ -103,6 +103,16 @@ namespace mbg {
       return result;
     }
 
+    /**
+     * @brief Creates a raw JSON string from the JSON object.
+     *
+     * This method serializes the JSON object into a string and returns it.
+     *
+     * @return RawType The raw JSON string.
+     */
+    String makeRaw() override {
+      return json_.dump();
+    }
   };
 } // namespace mbg
 

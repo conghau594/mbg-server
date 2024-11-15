@@ -12,7 +12,7 @@ namespace mbg {
   /// @brief A template class representing a data field of a data extractor object (JSON, XML,...) .
   /// @tparam T The type of the data field.
   template <typename T>
-  class DataField : public iDataField {
+  class DataField final : public iDataField {
   private:
     
     const char* fieldName_; ///< @brief The name of the data field.
@@ -41,7 +41,8 @@ namespace mbg {
   using FloatField = DataField<ExChar>; ///< @brief Type of data fields having a float value.
   using PathField = DataField<PathType>;///< @brief Type of data fields that store game move of player or the path for traveling through request processor.
 
-  extern const DataField<PathType> PATH_TAG;        ///< @brief A constant data field representing the field "path" of extractor objects.
+  extern const DataField<ExInt> INDEX_TAG; ///< @brief A constant data field representing the field "path" of extractor objects.
+  extern const DataField<PathType> PATH_TAG;  ///< @brief A constant data field representing the field "path" of extractor objects.
   extern const DataField<PathType> PLAYER_MOVE_TAG; ///< @brief A constant data field representing the field "playerMove" of extractor objects.
 
   extern const DataField<ExStr> LOGIN_SID_TAG;      ///< @brief A constant data field representing the field "loginSID" of extractor objects.

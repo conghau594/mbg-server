@@ -5,7 +5,7 @@
 #include "ExtendedType.h"
 
 namespace mbg {
-  class UserData {
+  class UserData final {
     ExStr  loginSID_;
     String userID_;
     String clientCode_;

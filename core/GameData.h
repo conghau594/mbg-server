@@ -6,7 +6,7 @@
 #include "enums.h"
 
 namespace mbg {
-  class GameData {
+  class GameData final {
     String      gameID_;
     ExStr       gameSID_;
     GameType    gameType_;

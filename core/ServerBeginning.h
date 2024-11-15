@@ -3,17 +3,17 @@
 #ifndef _MBG_SERVER_BEGINNING_H
 #define _MBG_SERVER_BEGINNING_H
 
-#include "BaseServerState.h"
-#include "iProcessor.h"
+#include "ServerStateBase.h"
+#include "iRequestProcessor.h"
 
 namespace mbg {
-  class ServerBeginning : public BaseServerState {
+  class ServerBeginning : public ServerStateBase {
   protected:
     virtual void notifyEntering() override { }
     virtual void notifyExiting() override {}
 
   public:
-    ServerBeginning()
+    ServerBeginning() = default;
     virtual void onEnter() override {}
     virtual void onExit() override {}
 

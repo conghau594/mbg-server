@@ -101,91 +101,12 @@ namespace mbg {
      */
     virtual SizeType getAvailableSlotCount() const = 0;
 
-    /**
-     * @brief Collapses the array.
-     * 
-     * This method collapses the array, removing any gaps between elements.
-     * The exact behavior is implementation-defined and must be provided by derived classes.
-     */
-    virtual void collapse() = 0;
-
-
-
-    /**
-     * @brief Clones elements from a source (raw) array to the current array.
-     * 
-     * This method copies `n` elements from the `source` (raw) array starting at the beginning
-     * to the current array starting at `destIndex`. The exact behavior is implementation-defined
-     * and must be provided by derived classes.
-     * 
-     * @param source The source array from which elements will be cloned.
-     * @param destIndex The starting index in the current array where elements will be cloned to.
-     * @param n The number of elements to clone.
-     */
-    virtual void cloneFrom(const T* source, SizeType destIndex, SizeType n) = 0;
-
-    /**
-     * @brief Clones elements from another finite array to the current array.
-     * 
-     * This method copies all elements from the `source` array to the current array.
-     * The exact behavior is implementation-defined and must be provided by derived classes.
-     * 
-     * @param source The source finite array from which elements will be cloned.
-     */
-    virtual void cloneFrom(const iFiniteArray<T>* source) = 0;
-
-    /**
-     * @brief Clones a specified number of elements from a source finite array to the current array.
-     * 
-     * This method copies `n` elements from the `source` array starting at `srcIndex`
-     * to the current array starting at `destIndex`. The exact behavior is implementation-defined
-     * and must be provided by derived classes.
-     * 
-     * @param source The source finite array from which elements will be cloned.
-     * @param srcIndex The starting index in the source array from which elements will be cloned.
-     * @param destIndex The starting index in the current array where elements will be cloned to.
-     * @param n The number of elements to clone.
-     */
-    virtual void cloneFrom(const iFiniteArray<T>* source, SizeType srcIndex, SizeType destIndex, SizeType n) = 0;
-
-    /**
-     * @brief Copies a specified number of elements to a destination array.
-     * 
-     * This method copies `n` elements starting from `srcIndex` in the current array
-     * to the destination array `dest`. The elements are not removed from the current array.
-     * The exact behavior is implementation-defined and must be provided by derived classes.
-     * 
-     * @param dest The destination array to which elements will be copied.
-     * @param srcIndex The starting index in the current array from which elements will be copied.
-     * @param n The number of elements to copy.
-     */
-    virtual void copyTo(T* dest, SizeType srcIndex, SizeType n) const = 0;
-
-    /**
-     * @brief Copies all elements to another array.
-     * 
-     * This method copies all elements from the current array to the destination array.
-     * The elements are not removed from the current array but are added to the destination array.
-     * The exact behavior is implementation-defined and must be provided by derived classes.
-     * 
-     * @param dest The destination array to which elements will be copied.
-     */
-    virtual void copyTo(iFiniteArray<T>* dest) const = 0;
-
-    /**
-     * @brief Copies a specified number of elements to another finite array.
-     * 
-     * This method copies `n` elements starting from `srcIndex` in the current array
-     * to the destination array `dest` starting at `destIndex`. The elements are not
-     * removed from the current array. The exact behavior is implementation-defined
-     * and must be provided by derived classes.
-     * 
-     * @param dest The destination finite array to which elements will be copied.
-     * @param srcIndex The starting index in the current array from which elements will be copied.
-     * @param destIndex The starting index in the destination array where elements will be copied to.
-     * @param n The number of elements to copy.
-     */
-    virtual void copyTo(iFiniteArray<T>* dest, SizeType srcIndex, SizeType destIndex, SizeType n) const = 0;
+    //virtual void cloneFrom(const T* source, SizeType destIndex, SizeType n) = 0;
+    //virtual void cloneFrom(const iFiniteArray<T>* source) = 0;
+    //virtual void cloneFrom(const iFiniteArray<T>* source, SizeType srcIndex, SizeType destIndex, SizeType n) = 0;
+    //virtual void copyTo(T* dest, SizeType srcIndex, SizeType n) const = 0;
+    //virtual void copyTo(iFiniteArray<T>* dest) const = 0;
+    //virtual void copyTo(iFiniteArray<T>* dest, SizeType srcIndex, SizeType destIndex, SizeType n) const = 0;
 
   };  
 } // namespace mbg

@@ -10,6 +10,7 @@ namespace mbg {
   template class DataField<ExFloat>;
   template class DataField<PathType>;
 
+  constexpr IntField  INDEX_TAG("index");
   constexpr PathField PATH_TAG("path");
   constexpr PathField PLAYER_MOVE_TAG("playerMove");
 

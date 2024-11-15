@@ -11,7 +11,7 @@ namespace mbg {
   /// @brief Template class that represents an extended type which can be nullable.
   /// @tparam T The type of the value to be stored.
   template <typename T>
-  class ExtendedType : public iNullable {
+  class ExtendedType final : public iNullable {
   private:
     T          value_;  ///< The value to be stored.
     const Bool isNull_; ///< Flag that indicates if the value is null.

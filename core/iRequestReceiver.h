@@ -1,4 +1,4 @@
-//iReceiver.h
+//iRequestReceiver.h
 
 #ifndef _MBG_I_RECEIVER_H
 #define _MBG_I_RECEIVER_H
@@ -6,9 +6,9 @@
 #include "primitives.h"
 
 namespace mbg {
-  class iReceiver {
+  class iRequestReceiver {
   public:
-    virtual ~iReceiver() = default;
+    virtual ~iRequestReceiver() = default;
     virtual void run() = 0;
     virtual void exit() = 0;
     virtual void receive(RawType data) = 0;
