@@ -3,7 +3,7 @@
 #ifndef _MBG_REQUEST_TRANFEROR_H
 #define _MBG_REQUEST_TRANFEROR_H
 
-#include "iRequestProcessor.h"
+#include "RequestProcessorBase.h"
 #include "iRequestReceiver.h"
 
 namespace mbg {
@@ -18,8 +18,8 @@ namespace mbg {
     RequestTranferor(iRequestReceiver* receiver) : receiver_(receiver) {}
 
     void process(iRequest* request) override {
-      RawType raw = request->makeRaw();
-      receiver_->receive(raw);
+      String raw = request->makeRaw();
+      receiver_->receive(raw.data());
     }
   };
 

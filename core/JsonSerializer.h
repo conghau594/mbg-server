@@ -1,28 +1,28 @@
-//JsonExtractor.h
+//JsonSerializer.h
 #ifndef _MBG_JSON_EXTRACTOR_H
 #define _MBG_JSON_EXTRACTOR_H
 
 #include "json.h"
-#include "iDataExtractor.h"
+#include "iSerializer.h"
 
 namespace mbg {
   /**
-   * @class JsonExtractor
+   * @class JsonSerializer
    * @brief A class to extract data from JSON objects.
    *
-   * This class implements the iDataExtractor interface to provide methods
+   * This class implements the iSerializer interface to provide methods
    * for extracting integer, string, float, and path values from JSON objects.
    */
-  class JsonExtractor final : public iDataExtractor {
+  class JsonSerializer final : public SerializerBase {
     Json json_; ///< JSON object to store the parsed JSON data.
 
   public:
     /**
-     * @brief Constructs a new JsonExtractor object.
+     * @brief Constructs a new JsonSerializer object.
      * 
      * @param raw A string containing the raw JSON data to be parsed.
      */
-    JsonExtractor(std::string raw) : json_{ raw } { }
+    JsonSerializer(std::string raw) : json_{ raw } { }
 
     /**
      * @brief Extracts an integer value from the JSON object.
@@ -34,7 +34,7 @@ namespace mbg {
      * @return ExInt The extracted integer value or NULL_INT if extraction fails.
      * @see NULL_INT
      */
-    ExInt getValue(const IntField& field) override {
+    ExInt getValue(const IntField& field) const override {
       ExInt result = NULL_INT;
       try {
         result = json_[field.getFieldName()].get<Int>();
@@ -53,7 +53,7 @@ namespace mbg {
      * @param field The field containing the name of the JSON key to extract the value from.
      * @return ExStr The extracted string value or an empty string if extraction fails.
      */
-    ExStr getValue(const StrField& field) override {
+    ExStr getValue(const StrField& field) const override {
       ExStr result;
       try {
         result = json_[field.getFieldName()].get<String>();
@@ -73,7 +73,7 @@ namespace mbg {
      * @return ExFloat The extracted float value or NULL_FLOAT if extraction fails.
      * @see NULL_FLOAT
      */
-    ExFloat getValue(const FloatField& field) override {
+    ExFloat getValue(const FloatField& field) const override {
       ExFloat result = NULL_FLOAT;
       try {
         result = json_[field.getFieldName()].get<Float>();
@@ -93,7 +93,7 @@ namespace mbg {
      * @return PathType The extracted path value or NULL_PATH if extraction fails.
      * @see NULL_PATH
      */
-    PathType getValue(const PathField& field) override {
+    PathType getValue(const PathField& field) const override {
       PathType result = NULL_PATH;
       try {
         result = json_[field.getFieldName()].get<Uint>();
@@ -102,17 +102,7 @@ namespace mbg {
 
       return result;
     }
-
-    /**
-     * @brief Creates a raw JSON string from the JSON object.
-     *
-     * This method serializes the JSON object into a string and returns it.
-     *
-     * @return RawType The raw JSON string.
-     */
-    String makeRaw() override {
-      return json_.dump();
-    }
+ 
   };
 } // namespace mbg
 

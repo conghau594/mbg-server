@@ -25,12 +25,15 @@ namespace mbg {
   public:/// Overrides from iFiniteArray
     CriticalFiniteArray(iCriticalArrayController* critArrCtrler = nullptr)
       : critArrCtrler_(critArrCtrler)
-    { }
-    
-    /*critArrCtrler_( (not isCritical) ? nullptr : new CriticalArrayController(
+    {
+      //TODO: Remove this. Should initiate this CriticalFiniteArray by a Factory method
+      if(critArrCtrler_ == nullptr)
+      {
+        critArrCtrler_ = new CriticalArrayController(
           [this] { return not isEmpty(); },    //shouldWakeUpHost
-          [this] { return not isFull(); })
-          */
+          [this] { return not isFull(); });
+      }
+    }
 
     ~CriticalFiniteArray() {
       if (critArrCtrler_ != nullptr)
@@ -50,7 +53,7 @@ namespace mbg {
     }
 
     void pushBack(const T& item) {
-      assert((isFull()));
+      assert((!isFull()));
       array_.emplace_back(item);
     }
 

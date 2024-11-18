@@ -9,7 +9,7 @@
 
 namespace mbg {
   /**
-   * @brief Interface for request handling, inheriting from iDataExtractor.
+   * @brief Interface for request handling, inheriting from iSerializer.
    *        Provides methods for setting and extracting paths, and managing request lifecycle.
    */
   class iRequest : public iDataExtractor {
@@ -44,6 +44,9 @@ namespace mbg {
      * @param n The number of bits for appending.
      */
     virtual void appendDestination(PathType dest, SizeType n) = 0;
+
+    virtual String makeRaw() = 0;
+
   };
 } // namespace mbg
 

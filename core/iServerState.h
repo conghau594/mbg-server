@@ -5,11 +5,12 @@
 
 #include "iState.h"
 #include "iServer.h"
+#include "String.h"
 
 namespace mbg {
-  class iServerState : public iState, public iServer {
+  class iServerState : public iState {
   public:
-    virtual iServerState* listenCommand() = 0;
+    virtual ServerStateEnum listenCommand() = 0;
   };
 } // namespace mbg
 

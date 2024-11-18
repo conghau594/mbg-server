@@ -1,12 +1,16 @@
-//Receiver.h
+//RequestReceiver.h
 
-#ifndef _MBG_RECEIVER_H
-#define _MBG_RECEIVER_H
+#ifndef _MBG_REQUEST_RECEIVER_H
+#define _MBG_REQUEST_RECEIVER_H
 
 #include "enums.h"
 #include "iRequestReceiver.h"
 #include "iRequestMediator.h"
 #include "CriticalFiniteArray.h"
+
+#ifdef _DEBUG
+#include <iostream>
+#endif
 
 namespace mbg {
   class RequestReceiver final : public iRequestReceiver {
@@ -28,17 +32,20 @@ namespace mbg {
       //      This is just a simple implementation. In fact, this class is used to receive data 
       //      from the network.
       raws_.lockForGuest();
+
+#ifdef _DEBUG
+      std::cout << "\n\n...void RequestReceiver::receive(RawType data)...";
+      std::cout << "\n  Server::RequestReceiver thread has just received raw data: " << data;
+#endif
+
       raws_.pushBack(data);
       raws_.wakeUpHost();
       raws_.unlock();
     }
     
-
   private:
     Bool shouldExit() const { return shouldExit_; }
-    
-    
-    
+
     RawQueue listen() {
       raws_.lockForHost();
       RawQueue cloneRaws;
@@ -50,4 +57,4 @@ namespace mbg {
   };
 } // namespace mbg
 
-#endif // !_MBG_RECEIVER_H
+#endif // !_MBG_REQUEST_RECEIVER_H

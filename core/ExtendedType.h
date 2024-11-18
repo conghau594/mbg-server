@@ -40,6 +40,14 @@ namespace mbg {
       return *this;
     }
 
+    constexpr Bool operator==(const ExtendedType<T>& rhs) {
+      Bool result = (this->isNull_ == rhs.isNull_);
+      if (not this->isNull_) {
+        result = result && (this->value_ == rhs.value_);
+      }
+      return result;
+    }
+
     /// @brief Checks if the value is null.
     /// @return True if the value is null, otherwise false.
     constexpr Bool isNull() const override {

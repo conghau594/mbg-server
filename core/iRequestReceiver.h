@@ -3,7 +3,7 @@
 #ifndef _MBG_I_RECEIVER_H
 #define _MBG_I_RECEIVER_H
 
-#include "primitives.h"
+#include "String.h"
 
 namespace mbg {
   class iRequestReceiver {

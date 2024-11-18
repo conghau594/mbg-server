@@ -18,12 +18,5 @@ namespace mbg {
   extern template Array<iRequestProcessor*>;
   using ProcessorArray = Array<iRequestProcessor*>;
 
-  class RequestProcessorBase : public iRequestProcessor {
-    Int id_;
-  public:
-    RequestProcessorBase() = default;
-    void setID(Int id) override { id_ = id; }
-    Int getID() const override { return id_; }
-  };
 } // namespace mbg
 #endif // !_MBG_I_REQUEST_PROCESSOR_H

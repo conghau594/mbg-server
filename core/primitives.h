@@ -10,8 +10,6 @@ namespace mbg {
   using Char  = unsigned char;
 
   using SizeType = int;
-  using RawType  = const unsigned char*;
-
 } // namespace mbg
 
 #endif // !_MBG_BASE_TYPES_H

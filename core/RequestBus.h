@@ -8,18 +8,19 @@
 namespace mbg {
   class RequestBus final : public iRequestBus {
     ProcessorArray processors_;
-    SizeType numBitsForRqtType_;
+    const SizeType numBitsForRqtType_;
   public:
-    RequestBus(SizeType numBitsForRqtType) : numBitsForRqtType_(numBitsForRqtType) {}
+    constexpr RequestBus(SizeType numBitsForRqtType) : numBitsForRqtType_(numBitsForRqtType) {}
 
     void emit(iRequest* request) override {
       SizeType dest = getDestination(request);
       processors_[dest]->process(request);
     }
 
-    void subscribe(iRequestProcessor* processor) override {
+    SizeType subscribe(iRequestProcessor* processor) override {
+      processor->setID(processors_.size());
       processors_.emplace_back(processor);
-      processor->setID(processors_.size() - 1);
+      return processor->getID();
     }
 
     void unsubscribe(iRequestProcessor* processor) override {

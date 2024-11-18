@@ -2,7 +2,7 @@
 #ifndef _MBG_I_CRITICAL_FINITE_ARRAY_H
 #define _MBG_I_CRITICAL_FINITE_ARRAY_H
 
-#include "iRequest.h"
+#include "RequestInit.h"
 #include "iFiniteArray.h"
 #include "iCriticalArrayController.h"
 #include "primitives.h"

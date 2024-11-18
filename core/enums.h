@@ -10,21 +10,22 @@ namespace mbg {
     MAX_QUEUE_CAPACITY = 1 << 10, ///< The maximum number of elements that can be stored 
                                   ///< in a queue
     MAX_RAW_QUEUE = MAX_QUEUE_CAPACITY,    
-    MAX_REQUEST_QUEUE = MAX_QUEUE_CAPACITY ///< Must be greater than or equal to MAX_RAW_QUEUE
-                                           
+    MAX_REQUEST_QUEUE = MAX_QUEUE_CAPACITY, ///< Must be greater than or equal to MAX_RAW_QUEUE
+    
+    NUM_BITS_FOR_REQUEST_TYPE = 4, ///< The number of bits used to represent the request type
   };
 
   enum GameType {
-    GT_INVALID = -1,
-    GT_CHESS,
-    GT_CHINESE_CHESS
+    GAME_TYPE_INVALID = -1,
+    GAME_CHESS,
+    GAME_CHN_CHESS
   };
 
   enum GameMode {
-    GM_INVALID = -1,
-    GM_COMPETITIVE,
-    GM_PRACTICE,
-    GM_FRIENDLY
+    GAME_MODE_INVALID = -1,
+    GAME_MODE_COMPETITIVE,
+    GAME_MODE_PRACTICE,
+    GAME_MODE_FRIENDLY
   };
 
   //enum GameStatus {
@@ -36,20 +37,49 @@ namespace mbg {
 
   enum GameResult {
     ///< Result or status of game
-    GR_1WIN      = 0x1,
-    GR_2WIN      = 0x2,
-    GR_3WIN      = 0x3,
-    GR_4WIN      = 0x4,
+    GAME_RSLT_PLR01_WIN    = 0x1,
+    GAME_RSLT_PLR02_WIN    = 0x2,
+    GAME_RSLT_PLR03_WIN    = 0x3,
+    GAME_RSLT_PLR04_WIN    = 0x4,
+    GAME_RSLT_PLR05_WIN    = 0x5,
+    GAME_RSLT_PLR06_WIN    = 0x6,
+    GAME_RSLT_PLR07_WIN    = 0x7,
+    GAME_RSLT_PLR08_WIN    = 0x8,
+    GAME_RSLT_PLR09_WIN    = 0x9,
+    GAME_RSLT_PLR10_WIN    = 0xA,
+    GAME_RSLT_PLR11_WIN    = 0xB,
+    GAME_RSLT_PLR12_WIN    = 0xC,
+    GAME_RSLT_PLR13_WIN    = 0xD,
+    GAME_RSLT_PLR14_WIN    = 0xE,
 
-    GR_UNDECIDED = 0x0,
-    GR_DRAW      = 0xF,
-
-    ///< Reasons of game ending: Checkmate, timeout, resign
-    GR_CHECKMATE = 0x10,
-    GR_TIMEOUT   = 0x20,
-    GR_RESIGN    = 0x30,
+    GAME_RSLT_UNDECIDED = 0x0,
+    GAME_RSLT_DRAW      = 0xF,
   };
 
+  enum GameEndReason {
+    ///< Reason for game end
+    GAME_END_RESIGN          = 0x10,
+    GAME_END_TIMEOUT         = 0x20,
+    GAME_END_CHECKMATE       = 0x30,      
+    GAME_END_DISCONNECT      = 0x40,
+    GAME_END_SERVER_SHUTDOWN = 0x50,
+  };
+
+  enum DataObjectType {
+    OBJ_USER_DATA           = 0x0,
+    OBJ_SERIALIZER          = 0x1,
+    OBJ_CHESS_GAME_DATA     = 0x2,
+    OBJ_CHN_CHESS_GAME_DATA = 0x3,
+  };
+
+  enum ServerStateEnum {
+    SV_STATE_INVALID = -1,
+    SV_STATE_BEGINNING,
+    SV_STATE_RUNNING,
+    SV_STATE_REJECTING,
+    SV_STATE_PAUSING,
+    SV_STATE_ENDING,
+  };
 
   //enum RequestType {
   //  RQT_VERIFY_LOGIN_SESSION_ID = 0x0,

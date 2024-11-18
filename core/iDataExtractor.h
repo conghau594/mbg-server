@@ -1,20 +1,19 @@
+//iDataExtactor.h
+
 #ifndef _MBG_I_DATA_EXTRACTOR_H
 #define _MBG_I_DATA_EXTRACTOR_H
 
-#include "DataField.h"
+
+#include "DataObject.h"
+
 
 namespace mbg {
   class iDataExtractor {
   public:
     virtual ~iDataExtractor() = default;
-    virtual ExInt getValue(const IntField& field) = 0;
-    virtual ExStr getValue(const StrField& field) = 0;
-    virtual ExFloat getValue(const FloatField& field) = 0;
-    virtual PathType getValue(const PathField& field) = 0;
-
-    virtual String makeRaw() = 0;
-
+    virtual DataObject* get(int type) = 0;
+    virtual void set(DataObject* dataPtr) = 0;
   };
-} // namespace mbg 
+} // namespace mbg
 
 #endif // !_MBG_I_DATA_EXTRACTOR_H

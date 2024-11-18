@@ -13,7 +13,7 @@ namespace mbg {
   private:
     Array<PathType> paths_;
   public:
-    RequestMenu(SizeType maxPaths) : paths_(maxPaths) { }
+    RequestMenu() = default;
 
     SizeType addPath(PathType path) override {
       paths_.emplace_back(path);

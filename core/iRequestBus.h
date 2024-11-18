@@ -10,7 +10,7 @@ namespace mbg {
     public:
     virtual ~iRequestBus() = default;
     virtual void emit(iRequest* request) = 0;
-    virtual void subscribe(iRequestProcessor* processor) = 0;
+    virtual SizeType subscribe(iRequestProcessor* processor) = 0;
     virtual void unsubscribe(iRequestProcessor* processor) = 0;
   };
 } // namespace mbg

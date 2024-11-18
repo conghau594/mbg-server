@@ -1,18 +1,22 @@
 //Request.h
-#ifndef _MBG_REQUEST_H
-#define _MBG_REQUEST_H
+#ifndef _MBG_REQUEST_INIT_H
+#define _MBG_REQUEST_INIT_H
 
 #include "iRequest.h"
+#include "UserData.h"
+#include "SerializerBase.h"
+
 
 namespace mbg {
   /**
    * @brief A class that represents a request and provides methods to manipulate and extract data from it.
    */
-  class Request final : public iRequest {
+  class RequestInit : public iRequest {
     PathType        path_;      ///< The current path directing this request to travel across the server.
-    iDataExtractor* extractor_; ///< The data extractor to be used for extracting data from the request.
+    SerializerBase* serializer_; ///< The data extractor to be used for extracting data from the request.
+    UserData*       userData_;  ///< The user data associated with the request.
 
-  public:  
+   public:  
     /**
      * @brief Constructs a Request object with the specified data extractor.
      * 
@@ -21,8 +25,8 @@ namespace mbg {
      * 
      * @param extractor A pointer to the data extractor to be used.
      */
-    Request(iDataExtractor* extractor)
-      : extractor_(extractor), path_(0) {}
+    RequestInit(SerializerBase* serializer)
+      : serializer_(serializer), path_(0) {}
 
     /**
      * @brief Constructs a Request object with the specified data extractor and path.
@@ -33,15 +37,15 @@ namespace mbg {
      * @param extractor A pointer to the data extractor to be used.
      * @param path The initial path value.
      */
-    Request(iDataExtractor* extractor, PathType path)
-      : extractor_(extractor), path_(path) {}
+    RequestInit(SerializerBase* serializer, PathType path)
+      : serializer_(serializer), path_(path) {}
 
     /**
      * @brief Destructor for the Request class.
      * 
      * This destructor deletes the data extractor associated with the request.
      */
-    ~Request() { delete extractor_; }
+    ~RequestInit () { }
 
     /**
      * @brief Destroys the current object instance.
@@ -87,52 +91,49 @@ namespace mbg {
       path_ = (path_ << n) | dest;
     }
 
-    /**
-     * @brief Gets the value of the specified integer field.
-     * @param field The integer field to get the value from.
-     * @return The extracted integer value.
-     */
-    ExInt getValue(const IntField& field) override {
-      return extractor_->getValue(field);
+    
+    DataObject* get(int type) override {
+      switch (type)
+      {
+      case OBJ_USER_DATA:
+        return userData_;
+
+      case OBJ_SERIALIZER:
+        return serializer_;
+
+      default:
+        return nullptr;
+      }
+
     }
 
-    /**
-     * @brief Gets the value of the specified string field.
-     * @param field The string field to get the value from.
-     * @return The extracted string value.
-     */
-    ExStr getValue(const StrField& field) override {
-      return extractor_->getValue(field);
-    }
+    void set(DataObject* dataPtr) override {
+      switch (dataPtr->getType())
+      {
+      case OBJ_USER_DATA:
+        userData_ = static_cast<UserData*>(dataPtr);
+        break;
 
-    /**
-     * @brief Gets the value of the specified float field.
-     * @param field The float field to get the value from.
-     * @return The extracted float value.
-     */
-    ExFloat getValue(const FloatField& field) override {
-      return extractor_->getValue(field);
-    }
+      case OBJ_SERIALIZER:
+        serializer_ = static_cast<SerializerBase*>(dataPtr);
+        break;
 
-    /**
-     * @brief Gets the value of the specified path field.
-     * @param field The path field to get the value from.
-     * @return The extracted path value.
-     */
-    PathType getValue(const PathField& field) override {
-      return extractor_->getValue(field);
+      default:
+        assert(false);
+        break;
+      }
     }
-
     /**
      * @brief Makes a raw string representation of the request.
      * @return The raw string representation of the request.
      */
     String makeRaw() override {
-      return extractor_->makeRaw();
+      //TODO: Implement this method: Request::makeRaw
+      return "extractor_->makeRaw();";
     }
     
   };
 } // namespace mbg
 
 
-#endif // !_MBG_REQUEST_H
+#endif // !_MBG_REQUEST_INIT_H
