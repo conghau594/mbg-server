@@ -12,20 +12,20 @@ namespace mbg {
       iServerState* newState = nullptr;
       switch (newStateCmd)
       {   
-      case SV_STATE_BEGINNING:
+      case SS_BEGINNING:
         break;
 
-      case SV_STATE_RUNNING:
+      case SS_RUNNING:
         newState = new ServerRunning(components_);
         break;
 
-      case SV_STATE_REJECTING:
+      case SS_REJECTING:
         break;
 
-      case SV_STATE_PAUSING:
+      case SS_PAUSING:
         break;
 
-      case SV_STATE_ENDING:
+      case SS_ENDING:
         break;
 
       default: // case SERVER_STATE_INVALID:

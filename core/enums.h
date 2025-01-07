@@ -73,12 +73,12 @@ namespace mbg {
   };
 
   enum ServerStateEnum {
-    SV_STATE_INVALID = -1,
-    SV_STATE_BEGINNING,
-    SV_STATE_RUNNING,
-    SV_STATE_REJECTING,
-    SV_STATE_PAUSING,
-    SV_STATE_ENDING,
+    SS_INVALID = -1,
+    SS_BEGINNING,
+    SS_RUNNING,
+    SS_REJECTING,
+    SS_PAUSING,
+    SS_ENDING,
   };
 
   //enum RequestType {

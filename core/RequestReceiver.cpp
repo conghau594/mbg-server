@@ -15,14 +15,13 @@ namespace mbg {
     std::cout << "\nA thread for a RequestReceiver is running...";
 #endif // _DEBUG
 
-    RequestQueue requests;
-    SerializerBase* jsonObj;
     while (!shouldExit()) {
       RawQueue raws = listen();
+      RequestQueue requests;
       for (SizeType i = 0; i < raws.getSize(); ++i) {
         //TODO: Need to replace the concrete object JsonSerializer with a factory method.
-        jsonObj = new SimpleSerializer(raws[i]);
-        requests.pushBack(new RequestInit(jsonObj));
+        SerializerBase* serializer = new SimpleSerializer(raws[i]);
+        requests.pushBack(new RequestInit(serializer));
       }
 
       mediator_->receive(requests);

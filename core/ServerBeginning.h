@@ -23,11 +23,11 @@ namespace mbg {
       std::cout << "\nServer [Beginning] is listening for command: ";
       String command;
       std::cin >> command;
-      if ( (command == "start") /*|| (std::stoi(command) == SV_STATE_RUNNING)*/ ) {
-        return SV_STATE_RUNNING;
+      if ( (command == "\\start") /*|| (std::stoi(command) == SS_RUNNING)*/ ) {
+        return SS_RUNNING;
       }
 
-      return SV_STATE_INVALID;
+      return SS_INVALID;
     }
 
   protected:

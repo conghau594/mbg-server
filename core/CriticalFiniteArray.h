@@ -27,7 +27,7 @@ namespace mbg {
       : critArrCtrler_(critArrCtrler)
     {
       //TODO: Remove this. Should initiate this CriticalFiniteArray by a Factory method
-      if(critArrCtrler_ == nullptr)
+      if(critArrCtrler == nullptr)
       {
         critArrCtrler_ = new CriticalArrayController(
           [this] { return not isEmpty(); },    //shouldWakeUpHost
