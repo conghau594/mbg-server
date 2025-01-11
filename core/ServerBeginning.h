@@ -20,6 +20,7 @@ namespace mbg {
     void onExit() override {}
 
     ServerStateEnum listenCommand() override {
+#ifdef _DEBUG
       std::cout << "\nServer [Beginning] is listening for command: ";
       String command;
       std::cin >> command;
@@ -28,6 +29,10 @@ namespace mbg {
       }
 
       return SS_INVALID;
+#else
+      return SS_RUNNING;
+#endif
+
     }
 
   protected:
